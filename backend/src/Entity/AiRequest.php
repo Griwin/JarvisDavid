@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Repository\AiRequestRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,6 +15,7 @@ use App\Enum\AiRequestType;
 #[ApiResource(
     operations: [
         new Post(),
+        new GetCollection(),
     ]
 )]
 class AiRequest

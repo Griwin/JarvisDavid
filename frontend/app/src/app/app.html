@@ -1,1 +1,7 @@
 <h1>JarvisDavid</h1>
+
+<ul>
+  <li *ngFor="let req of requests">
+    {{ req.text }} → {{ req.response }} ({{ req.type }})
+  </li>
+</ul>
