@@ -1,0 +1,9 @@
+.env
+.env.local
+/vendor/
+/node_modules/
+/var/
+/public/build/
+.idea/
+.vscode/
+.DS_Store
