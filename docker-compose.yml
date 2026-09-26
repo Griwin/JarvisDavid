@@ -9,8 +9,11 @@ services:
       - ./backend:/var/www/backend
     environment:
       APP_ENV: dev
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: qwen2.5:3b
     depends_on:
       - db
+      - ollama
 
   nginx:
     image: nginx:1.27-alpine
@@ -44,5 +47,14 @@ services:
       - "5050:80"
     depends_on:
       - db
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: jarvis_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - jarvis_ollama:/root/.ollama
 volumes:
   jarvis_pgdata:
+  jarvis_ollama:

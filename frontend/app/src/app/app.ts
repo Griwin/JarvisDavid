@@ -1,28 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import {ApiService} from '../../services/api.service';
-import { NgFor } from '@angular/common';
-import {HttpErrorResponse} from '@angular/common/http';
+import { Component } from '@angular/core';
+import { NgIf } from '@angular/common';
+
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgFor],
+  imports: [
+    NgIf,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive
+  ],
   templateUrl: './app.html',
+  styleUrl: './app.css'
 })
-export class App implements OnInit {
-  requests: any[] = [];
+export class App {
+  isSidebarOpen = true;
 
-  constructor(private api: ApiService) {}
-
-  ngOnInit(): void {
-    this.api.getAiRequests().subscribe({
-      next: (data: any) => {
-
-        this.requests = data.member || [];
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error('Erreur API', err);
-      }
-    });
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 }

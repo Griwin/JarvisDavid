@@ -1,0 +1,102 @@
+<section class="translate-page">
+  <div class="page-header">
+    <h1>Traduction</h1>
+    <p>Traduisez vos messages de manière plus naturelle et fluide.</p>
+  </div>
+
+  <div class="translate-grid">
+    <mat-card class="translate-card">
+      <mat-card-header>
+        <mat-card-title>Message source</mat-card-title>
+        <mat-card-subtitle>Entrez votre texte à traduire</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Langue source</mat-label>
+            <mat-select [(ngModel)]="sourceLanguage">
+              <mat-option value="fr">Français</mat-option>
+              <mat-option value="zh">Chinois</mat-option>
+              <mat-option value="en">Anglais</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button
+            mat-icon-button
+            class="swap-button"
+            type="button"
+            aria-label="Inverser les langues"
+            (click)="swapLanguages()"
+          >
+            <mat-icon>swap_horiz</mat-icon>
+          </button>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Langue cible</mat-label>
+            <mat-select [(ngModel)]="targetLanguage">
+              <mat-option value="zh">Chinois</mat-option>
+              <mat-option value="fr">Français</mat-option>
+              <mat-option value="en">Anglais</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Ton</mat-label>
+            <mat-select [(ngModel)]="tone">
+              <mat-option value="natural">Naturel</mat-option>
+              <mat-option value="friendly">Amical</mat-option>
+              <mat-option value="polite">Poli</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Texte à traduire</mat-label>
+          <textarea
+            matInput
+            rows="8"
+            maxlength="5000"
+            [(ngModel)]="sourceText"
+            placeholder="Écrivez votre message ici..."
+          ></textarea>
+          <mat-hint align="end">{{ sourceText.length }} / 5000</mat-hint>
+        </mat-form-field>
+
+        @if (sourceLanguage === targetLanguage) {
+          <p class="validation-message">Choisissez deux langues différentes.</p>
+        }
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="translate()" [disabled]="!canTranslate">
+          {{ isLoading ? 'Traduction en cours…' : 'Traduire avec l’IA locale' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="translate-card">
+      <mat-card-header>
+        <mat-card-title>Résultat</mat-card-title>
+        <mat-card-subtitle>Votre traduction apparaîtra ici</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        @if (errorMessage) {
+          <p class="error-message" role="alert">{{ errorMessage }}</p>
+        } @else {
+          <div class="result-box" [class.loading]="isLoading" aria-live="polite">
+            {{ isLoading ? 'Le modèle prépare votre traduction…' : (translatedText || 'Aucun résultat pour le moment.') }}
+          </div>
+        }
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-stroked-button (click)="copyResult()" [disabled]="!translatedText">
+          <mat-icon>content_copy</mat-icon>
+          Copier
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>

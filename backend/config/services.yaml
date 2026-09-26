@@ -19,5 +19,13 @@ services:
     App\:
         resource: '../src/'
 
+    App\Service\Translation\TranslationProviderInterface:
+        alias: App\Service\Translation\OllamaTranslationProvider
+
+    App\Service\Translation\OllamaTranslationProvider:
+        arguments:
+            $baseUrl: '%env(OLLAMA_BASE_URL)%'
+            $model: '%env(OLLAMA_MODEL)%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
