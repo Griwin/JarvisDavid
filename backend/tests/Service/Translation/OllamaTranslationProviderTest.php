@@ -25,7 +25,7 @@ final class OllamaTranslationProviderTest extends TestCase
             ], JSON_THROW_ON_ERROR));
         });
 
-        $provider = new OllamaTranslationProvider($client, 'http://ollama:11434', 'qwen3:8b');
+        $provider = new OllamaTranslationProvider($client, 'http://ollama:11434', 'gemma3:12b');
 
         self::assertSame('Hello', $provider->translate('Bonjour', 'fr', 'en', 'natural'));
     }
@@ -36,7 +36,7 @@ final class OllamaTranslationProviderTest extends TestCase
             'message' => ['content' => '  '],
         ], JSON_THROW_ON_ERROR)));
 
-        $provider = new OllamaTranslationProvider($client, 'http://ollama:11434', 'qwen3:8b');
+        $provider = new OllamaTranslationProvider($client, 'http://ollama:11434', 'gemma3:12b');
 
         $this->expectException(TranslationException::class);
         $provider->translate('Bonjour', 'fr', 'en', 'natural');

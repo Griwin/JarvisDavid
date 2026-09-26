@@ -2,7 +2,7 @@
 
 JarvisDavid est une application d'apprentissage construite avec un backend Symfony/API Platform et un frontend Angular. Elle a vocation à proposer plusieurs modules assistés par une IA locale : traduction, résumé de texte et traitement de documents.
 
-> État actuel : la traduction et le résumé de texte utilisent le modèle local `qwen3:8b` exécuté par Ollama. Les textes ne quittent pas la machine.
+> État actuel : la traduction et le résumé de texte utilisent le modèle local `gemma3:12b` exécuté par Ollama. Les textes ne quittent pas la machine.
 
 ## Architecture locale
 
@@ -13,7 +13,7 @@ JarvisDavid est une application d'apprentissage construite avec un backend Symfo
 | Documentation API | Swagger UI | <http://localhost:8080/api/docs> |
 | Base de données | PostgreSQL 15 | `localhost:5432` |
 | Administration BDD | pgAdmin | <http://localhost:5050> |
-| Modèle IA local | Ollama + Qwen 3 8B | <http://localhost:11434> |
+| Modèle IA local | Ollama + Gemma 3 12B | <http://localhost:11434> |
 
 Docker lance Symfony, Nginx, PostgreSQL, pgAdmin et Ollama. Le serveur Angular se lance séparément sur la machine.
 
@@ -25,6 +25,8 @@ Avant de commencer, vérifier la présence de :
 - Node.js 20 ou supérieur ;
 - npm ;
 - Git.
+
+Pour exécuter Gemma 3 12B confortablement, attribuer au moins **16 Go de mémoire** à Docker Desktop dans **Settings → Resources → Advanced**.
 
 Commandes de vérification :
 
@@ -72,10 +74,10 @@ Cette commande applique les migrations Doctrine qui n'ont pas encore été exéc
 
 ### 4. Télécharger le modèle IA
 
-Cette commande est nécessaire une seule fois et télécharge environ 5,2 Go dans un volume Docker :
+Cette commande est nécessaire une seule fois et télécharge environ 8,1 Go dans un volume Docker :
 
 ```bash
-docker compose exec ollama ollama pull qwen3:8b
+docker compose exec ollama ollama pull gemma3:12b
 ```
 
 Vérifier que le modèle est disponible :
@@ -266,7 +268,7 @@ Cette opération détruit les données locales :
 docker compose down -v
 docker compose up -d
 docker compose exec php php bin/console doctrine:migrations:migrate --no-interaction
-docker compose exec ollama ollama pull qwen3:8b
+docker compose exec ollama ollama pull gemma3:12b
 ```
 
 ## Workflow Codex du projet

@@ -1,7 +1,8 @@
 <section class="summarize-page">
   <div class="page-header">
-    <h1>Résumé de texte</h1>
-    <p>Transformez un texte long en une synthèse claire avec votre IA locale.</p>
+    <div class="title-icon"><fa-icon [icon]="icons.summarize" /></div>
+    <div><span class="eyebrow">Outil de lecture</span><h1>Résumé de texte</h1>
+    <p>Allez à l’essentiel tout en préservant les faits, chiffres et conclusions.</p></div>
   </div>
 
   <div class="summarize-grid">
@@ -32,8 +33,10 @@
 
       <mat-card-actions>
         <button mat-flat-button color="primary" (click)="summarize()" [disabled]="!canSummarize">
-          {{ isLoading ? 'Résumé en cours…' : 'Résumer avec l’IA locale' }}
+          @if (isLoading) { <mat-spinner diameter="18" /> Résumé en cours… }
+          @else { <fa-icon [icon]="icons.sparkle" /> Résumer avec l’IA locale }
         </button>
+        <button mat-button type="button" (click)="reset()" [disabled]="isLoading || (!sourceText && !summaryText)"><fa-icon [icon]="icons.reset" /> Effacer</button>
       </mat-card-actions>
     </mat-card>
 
@@ -45,18 +48,20 @@
 
       <mat-card-content>
         @if (errorMessage) {
-          <p class="error-message" role="alert">{{ errorMessage }}</p>
+          <div class="error-message" role="alert"><fa-icon [icon]="icons.error" /><span><strong>Le résumé a échoué</strong>{{ errorMessage }}</span></div>
         } @else {
           <div class="result-box" [class.loading]="isLoading" aria-live="polite">
-            {{ isLoading ? 'Le modèle analyse votre texte…' : (summaryText || 'Aucun résumé pour le moment.') }}
+            @if (isLoading) { <div class="empty-state"><mat-spinner diameter="28" /><strong>L’IA analyse votre texte</strong><span>Les informations importantes sont en cours d’extraction.</span></div> }
+            @else if (summaryText) { {{ summaryText }} }
+            @else { <div class="empty-state"><fa-icon [icon]="icons.sparkle" /><strong>Votre résumé apparaîtra ici</strong><span>Ajoutez un texte d’au moins 50 caractères.</span></div> }
           </div>
         }
       </mat-card-content>
 
       <mat-card-actions>
         <button mat-stroked-button (click)="copyResult()" [disabled]="!summaryText">
-          <mat-icon>content_copy</mat-icon>
-          Copier
+          <fa-icon [icon]="isCopied ? icons.copied : icons.copy" />
+          {{ isCopied ? 'Copié !' : 'Copier' }}
         </button>
       </mat-card-actions>
     </mat-card>

@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowRightArrowLeft, faCheck, faCopy, faLanguage, faRotateLeft, faTriangleExclamation, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
   ApiService,
   LanguageCode,
@@ -26,16 +28,27 @@ import {
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatIconModule
+    MatProgressSpinnerModule,
+    FontAwesomeModule
   ],
   templateUrl: './translate.html',
   styleUrl: './translate.css'
 })
 export class Translate {
+  readonly icons = {
+    translate: faLanguage,
+    sparkle: faWandMagicSparkles,
+    swap: faArrowRightArrowLeft,
+    copy: faCopy,
+    copied: faCheck,
+    reset: faRotateLeft,
+    error: faTriangleExclamation,
+  };
   sourceText = '';
   translatedText = '';
   errorMessage = '';
   isLoading = false;
+  isCopied = false;
 
   sourceLanguage: LanguageCode = 'fr';
   targetLanguage: LanguageCode = 'zh';
@@ -83,6 +96,13 @@ export class Translate {
     this.errorMessage = '';
   }
 
+  reset(): void {
+    this.sourceText = '';
+    this.translatedText = '';
+    this.errorMessage = '';
+    this.isCopied = false;
+  }
+
   get canTranslate(): boolean {
     return this.sourceText.trim().length > 0
       && this.sourceText.length <= 5000
@@ -95,8 +115,13 @@ export class Translate {
       return;
     }
 
-    navigator.clipboard.writeText(this.translatedText).catch(() => {
-      this.errorMessage = 'Impossible de copier automatiquement le résultat.';
-    });
+    navigator.clipboard.writeText(this.translatedText)
+      .then(() => {
+        this.isCopied = true;
+        window.setTimeout(() => (this.isCopied = false), 1800);
+      })
+      .catch(() => {
+        this.errorMessage = 'Impossible de copier automatiquement le résultat.';
+      });
   }
 }

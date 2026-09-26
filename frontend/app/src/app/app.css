@@ -1,11 +1,14 @@
 .layout-container {
   height: 100vh;
+  background: #f5f7fb;
 }
 
 .sidebar {
-  width: 260px;
-  border-right: 1px solid #e0e0e0;
-  padding: 1rem 0.5rem;
+  width: 270px;
+  border-right: 0;
+  padding: 1rem 0.75rem;
+  background: #111827;
+  color: #fff;
 }
 
 .sidebar-header {
@@ -20,10 +23,28 @@
   font-size: 1rem;
 }
 
+.sidebar-brand > span:last-child { display: grid; }
+.sidebar-brand small { color: #9ca3af; font-size: .72rem; font-weight: 500; margin-top: 2px; }
+.brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, #7c3aed, #4f46e5); }
+
+.sidebar ::ng-deep .mat-mdc-list-item { color: #cbd5e1; border-radius: 10px; margin: 4px 0; }
+.sidebar ::ng-deep .mdc-list-item__primary-text,
+.sidebar ::ng-deep .mat-mdc-list-item-icon { color: inherit !important; }
+.sidebar fa-icon[matListItemIcon] { color: inherit; }
+.sidebar ::ng-deep .mat-mdc-list-item:hover { background: rgba(255,255,255,.07); color: #fff; }
+.sidebar ::ng-deep .active-link { background: rgba(99,102,241,.22); color: #fff; }
+.nav-section { margin: 1.5rem .75rem .5rem; color: #64748b; font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.disabled-link { opacity: .45; pointer-events: none; }
+
 .topbar {
   position: sticky;
   top: 0;
   z-index: 10;
+  background: rgba(255,255,255,.9) !important;
+  color: #172033 !important;
+  border-bottom: 1px solid #e8ebf2;
+  backdrop-filter: blur(14px);
+  box-shadow: none;
 }
 
 .topbar-title {
@@ -31,38 +52,18 @@
   font-weight: 600;
 }
 
+.local-badge { margin-left: auto; display: inline-flex; align-items: center; gap: .45rem; padding: .35rem .7rem; border-radius: 999px; background: #ecfdf5; color: #047857; font-size: .75rem; font-weight: 700; }
+.local-badge span { width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 4px rgba(16,185,129,.12); }
+
 .page-content {
-  padding: 2rem;
-  background: #f7f8fa;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  background: #f5f7fb;
   min-height: calc(100vh - 64px);
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
-.hero {
-  margin-bottom: 2rem;
-}
-
-.hero h1 {
-  margin: 0 0 0.75rem;
-  font-size: 2rem;
-}
-
-.hero p {
-  margin: 0;
-  max-width: 700px;
-  color: #555;
-  line-height: 1.6;
-}
-
-.cards-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-}
-
-.feature-card {
-  border-radius: 16px;
-}
-
-.feature-card mat-card-actions {
-  padding: 0 1rem 1rem;
+@media (max-width: 720px) {
+  .sidebar { width: 230px; }
+  .topbar-title { display: none; }
 }

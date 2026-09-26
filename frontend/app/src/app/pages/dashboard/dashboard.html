@@ -1,68 +1,70 @@
 <section class="hero">
-  <h1>Bienvenue sur JarvisDavid</h1>
-  <p>
-    Une application modulaire pour la traduction, le résumé de texte
-    et l’analyse de documents avec une IA locale.
-  </p>
+  <div>
+    <span class="eyebrow">Assistant personnel</span>
+    <h1>Que voulez-vous accomplir&nbsp;?</h1>
+    <p>Des outils d’écriture rapides, privés et propulsés par une IA exécutée directement sur votre machine.</p>
+  </div>
+  <div class="privacy-note"><fa-icon [icon]="icons.privacy" /><span><strong>100 % local</strong><small>Vos textes ne quittent jamais votre Mac</small></span></div>
 </section>
 
 <section class="cards-section">
   <mat-card class="feature-card">
+    <div class="icon-shell purple"><fa-icon [icon]="icons.translate" /></div>
     <mat-card-header>
-      <mat-icon mat-card-avatar>translate</mat-icon>
       <mat-card-title>Traduction</mat-card-title>
-      <mat-card-subtitle>Assistant de conversation</mat-card-subtitle>
+      <mat-card-subtitle>Français, anglais et chinois</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <p>
-        Traduire rapidement un message avec un ton naturel et fluide.
+        Adaptez vos messages au bon ton sans perdre leur sens.
       </p>
     </mat-card-content>
 
     <mat-card-actions>
       <button mat-flat-button color="primary" routerLink="/translate">
-        Commencer
+        Traduire <fa-icon [icon]="icons.arrow" />
       </button>
     </mat-card-actions>
   </mat-card>
 
   <mat-card class="feature-card">
+    <div class="icon-shell blue"><fa-icon [icon]="icons.summarize" /></div>
     <mat-card-header>
-      <mat-icon mat-card-avatar>article</mat-icon>
       <mat-card-title>Résumé de texte</mat-card-title>
       <mat-card-subtitle>Synthèse assistée par IA</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <p>
-        Générer un résumé clair à partir d’un texte brut.
+        Transformez un contenu long en une synthèse claire et fidèle.
       </p>
     </mat-card-content>
 
     <mat-card-actions>
       <button mat-flat-button color="primary" routerLink="/summarize">
-        Commencer
+        Résumer <fa-icon [icon]="icons.arrow" />
       </button>
     </mat-card-actions>
   </mat-card>
 
-  <mat-card class="feature-card">
+  <mat-card class="feature-card coming-soon">
+    <span class="soon-badge">Bientôt</span>
+    <div class="icon-shell amber"><fa-icon [icon]="icons.pdf" /></div>
     <mat-card-header>
-      <mat-icon mat-card-avatar>picture_as_pdf</mat-icon>
       <mat-card-title>Résumé PDF</mat-card-title>
-      <mat-card-subtitle>Bientôt disponible</mat-card-subtitle>
+      <mat-card-subtitle>Documents et rapports</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <p>
-        Importer un PDF et obtenir un résumé synthétique.
+        Importez un document et retrouvez immédiatement ses idées clés.
       </p>
     </mat-card-content>
 
     <mat-card-actions>
       <button mat-stroked-button disabled>
-        Bientôt
+        Indisponible
       </button>
     </mat-card-actions>
   </mat-card>
