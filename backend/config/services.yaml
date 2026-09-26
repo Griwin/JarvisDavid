@@ -27,5 +27,13 @@ services:
             $baseUrl: '%env(OLLAMA_BASE_URL)%'
             $model: '%env(OLLAMA_MODEL)%'
 
+    App\Service\Summarization\SummarizationProviderInterface:
+        alias: App\Service\Summarization\OllamaTextSummarizer
+
+    App\Service\Summarization\OllamaTextSummarizer:
+        arguments:
+            $baseUrl: '%env(OLLAMA_BASE_URL)%'
+            $model: '%env(OLLAMA_MODEL)%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

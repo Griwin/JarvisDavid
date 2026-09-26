@@ -14,9 +14,9 @@ JarvisDavid is a learning project for building a modular local-AI assistant. The
 ## Current state
 
 - `/dashboard` and `/translate` exist in Angular.
-- `POST /api/translate` uses the local `qwen2.5:3b` model through the Ollama Docker service and persists successful requests.
+- `POST /api/translate` and `POST /api/summarize` use the local `qwen3:8b` model through the Ollama Docker service and persist successful requests.
 - `AiRequest` models persisted AI work with the `translate`, `summarize`, and `pdf_summary` types.
-- Text summarization, PDF summarization, history UI, and authentication are not complete yet.
+- PDF summarization, history UI, and authentication are not complete yet.
 
 ## Working agreements
 
@@ -47,11 +47,14 @@ If a command cannot run because dependencies or services are unavailable, report
 
 ## Delivery workflow
 
+- Start every feature from an up-to-date `main` on a new `feat/<short-name>` branch. Never stack a new feature on an unmerged feature branch.
+- Finish and merge the current feature PR before starting the next feature branch.
 - Do not create a pull request for an ordinary implementation request unless the user also asks to deliver, publish, finish with a PR, or invokes `$ship-pr`.
 - Before a PR, review the complete diff against the target branch for correctness, regressions, security, tests, and accidental files. Fix issues that are clearly within the requested scope, then rerun affected checks.
 - Never stage unrelated user changes. If unrelated changes cannot be separated safely, stop and identify them.
 - Use focused Conventional Commit messages such as `feat(frontend): add translation page`.
 - Push a feature branch, never the repository default branch.
 - Open the PR only after required checks pass, or clearly mark any unavailable check in the PR body.
-- PR descriptions must include the purpose, principal changes, verification performed, and known limitations.
+- Write PR titles and descriptions in French.
+- Keep PR descriptions short: outcome, important implementation choices, verification, and only side effects or limitations that matter to the reviewer.
 - After creating a PR, return its link and a concise review summary. The user remains responsible for final approval and merge.

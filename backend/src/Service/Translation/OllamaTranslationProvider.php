@@ -43,6 +43,7 @@ final readonly class OllamaTranslationProvider implements TranslationProviderInt
                 'json' => [
                     'model' => $this->model,
                     'stream' => false,
+                    'think' => false,
                     'messages' => [
                         [
                             'role' => 'system',
@@ -55,7 +56,10 @@ final readonly class OllamaTranslationProvider implements TranslationProviderInt
                         ],
                         ['role' => 'user', 'content' => $text],
                     ],
-                    'options' => ['temperature' => 0.2],
+                    'options' => [
+                        'temperature' => 0.2,
+                        'num_predict' => 500,
+                    ],
                 ],
                 'timeout' => 120,
             ]);

@@ -1,0 +1,64 @@
+<section class="summarize-page">
+  <div class="page-header">
+    <h1>Résumé de texte</h1>
+    <p>Transformez un texte long en une synthèse claire avec votre IA locale.</p>
+  </div>
+
+  <div class="summarize-grid">
+    <mat-card class="summary-card">
+      <mat-card-header>
+        <mat-card-title>Texte source</mat-card-title>
+        <mat-card-subtitle>50 à 20 000 caractères</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Texte à résumer</mat-label>
+          <textarea
+            matInput
+            rows="14"
+            minlength="50"
+            maxlength="20000"
+            [(ngModel)]="sourceText"
+            placeholder="Collez votre texte ici..."
+          ></textarea>
+          <mat-hint align="end">{{ sourceText.length }} / 20 000</mat-hint>
+        </mat-form-field>
+
+        @if (sourceText.trim().length > 0 && sourceText.trim().length < 50) {
+          <p class="validation-message">Le texte doit contenir au moins 50 caractères.</p>
+        }
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="summarize()" [disabled]="!canSummarize">
+          {{ isLoading ? 'Résumé en cours…' : 'Résumer avec l’IA locale' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-header>
+        <mat-card-title>Résumé</mat-card-title>
+        <mat-card-subtitle>Les informations essentielles du texte</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        @if (errorMessage) {
+          <p class="error-message" role="alert">{{ errorMessage }}</p>
+        } @else {
+          <div class="result-box" [class.loading]="isLoading" aria-live="polite">
+            {{ isLoading ? 'Le modèle analyse votre texte…' : (summaryText || 'Aucun résumé pour le moment.') }}
+          </div>
+        }
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-stroked-button (click)="copyResult()" [disabled]="!summaryText">
+          <mat-icon>content_copy</mat-icon>
+          Copier
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>

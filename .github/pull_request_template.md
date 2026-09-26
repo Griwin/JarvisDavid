@@ -1,19 +1,13 @@
-## Summary
+## Résumé
 
-- Describe the user-visible outcome.
-- Note the main implementation choices.
+- Décrire le résultat visible et les choix importants en quelques points.
 
-## Verification
+## Vérifications
 
-- [ ] Relevant frontend tests
-- [ ] Frontend production build
-- [ ] Relevant backend tests or Symfony checks
-- [ ] `git diff --check`
+- [ ] Tests concernés
+- [ ] Build de production
+- [ ] Revue du diff
 
-## Review
+## Points d'attention
 
-- List findings fixed during self-review, or state `No blocking findings`.
-
-## Limitations
-
-- List simulations, skipped checks, missing services, or follow-up work.
+- Indiquer uniquement les effets de bord, changements de configuration, migrations ou limitations utiles. Supprimer cette section si elle est vide.

@@ -18,13 +18,14 @@ final class OllamaTranslationProviderTest extends TestCase
             self::assertSame('POST', $method);
             self::assertSame('http://ollama:11434/api/chat', $url);
             self::assertStringContainsString('Bonjour', $options['body']);
+            self::assertStringContainsString('"think":false', $options['body']);
 
             return new MockResponse(json_encode([
                 'message' => ['content' => 'Hello'],
             ], JSON_THROW_ON_ERROR));
         });
 
-        $provider = new OllamaTranslationProvider($client, 'http://ollama:11434', 'qwen2.5:3b');
+        $provider = new OllamaTranslationProvider($client, 'http://ollama:11434', 'qwen3:8b');
 
         self::assertSame('Hello', $provider->translate('Bonjour', 'fr', 'en', 'natural'));
     }
@@ -35,7 +36,7 @@ final class OllamaTranslationProviderTest extends TestCase
             'message' => ['content' => '  '],
         ], JSON_THROW_ON_ERROR)));
 
-        $provider = new OllamaTranslationProvider($client, 'http://ollama:11434', 'qwen2.5:3b');
+        $provider = new OllamaTranslationProvider($client, 'http://ollama:11434', 'qwen3:8b');
 
         $this->expectException(TranslationException::class);
         $provider->translate('Bonjour', 'fr', 'en', 'natural');
