@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ship PR"
+  short_description: "Review, verify, and publish a GitHub PR"
+  default_prompt: "Review the completed JarvisDavid changes, fix in-scope findings, run verification, and publish a GitHub pull request for my approval."

@@ -1,0 +1,68 @@
+.layout-container {
+  height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  border-right: 1px solid #e0e0e0;
+  padding: 1rem 0.5rem;
+}
+
+.sidebar-header {
+  padding: 0.5rem 0.75rem 1rem;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.topbar-title {
+  margin-left: 0.75rem;
+  font-weight: 600;
+}
+
+.page-content {
+  padding: 2rem;
+  background: #f7f8fa;
+  min-height: calc(100vh - 64px);
+}
+
+.hero {
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  margin: 0 0 0.75rem;
+  font-size: 2rem;
+}
+
+.hero p {
+  margin: 0;
+  max-width: 700px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  border-radius: 16px;
+}
+
+.feature-card mat-card-actions {
+  padding: 0 1rem 1rem;
+}
