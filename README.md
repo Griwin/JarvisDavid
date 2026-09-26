@@ -2,7 +2,7 @@
 
 JarvisDavid est une application d'apprentissage construite avec un backend Symfony/API Platform et un frontend Angular. Elle a vocation à proposer plusieurs modules assistés par une IA locale : traduction, résumé de texte et traitement de documents.
 
-> État actuel : le module de traduction utilise le modèle local `qwen2.5:3b` exécuté par Ollama. Les textes ne quittent pas la machine.
+> État actuel : la traduction et le résumé de texte utilisent le modèle local `qwen3:8b` exécuté par Ollama. Les textes ne quittent pas la machine.
 
 ## Architecture locale
 
@@ -13,7 +13,7 @@ JarvisDavid est une application d'apprentissage construite avec un backend Symfo
 | Documentation API | Swagger UI | <http://localhost:8080/api/docs> |
 | Base de données | PostgreSQL 15 | `localhost:5432` |
 | Administration BDD | pgAdmin | <http://localhost:5050> |
-| Modèle IA local | Ollama + Qwen 2.5 3B | <http://localhost:11434> |
+| Modèle IA local | Ollama + Qwen 3 8B | <http://localhost:11434> |
 
 Docker lance Symfony, Nginx, PostgreSQL, pgAdmin et Ollama. Le serveur Angular se lance séparément sur la machine.
 
@@ -72,10 +72,10 @@ Cette commande applique les migrations Doctrine qui n'ont pas encore été exéc
 
 ### 4. Télécharger le modèle IA
 
-Cette commande est nécessaire une seule fois et télécharge environ 2 Go dans un volume Docker :
+Cette commande est nécessaire une seule fois et télécharge environ 5,2 Go dans un volume Docker :
 
 ```bash
-docker compose exec ollama ollama pull qwen2.5:3b
+docker compose exec ollama ollama pull qwen3:8b
 ```
 
 Vérifier que le modèle est disponible :
@@ -149,6 +149,18 @@ Le backend interroge Ollama, renvoie une traduction comme `Hello` et enregistre 
 ### Vérifier Angular
 
 Ouvrir <http://localhost:4200/translate>, saisir un texte puis cliquer sur **Traduire**. La page Angular envoie une requête à Symfony sur `http://localhost:8080/api/translate`.
+
+### Tester le résumé de texte
+
+Ouvrir <http://localhost:4200/summarize> ou appeler directement l'API :
+
+```bash
+curl -X POST http://localhost:8080/api/summarize \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"Collez ici un texte comportant au moins cinquante caractères afin que le modèle local puisse en produire une synthèse."}'
+```
+
+Le résumé est produit dans la langue du texte source et la requête réussie est enregistrée dans PostgreSQL.
 
 ## Commandes utiles
 
@@ -254,7 +266,7 @@ Cette opération détruit les données locales :
 docker compose down -v
 docker compose up -d
 docker compose exec php php bin/console doctrine:migrations:migrate --no-interaction
-docker compose exec ollama ollama pull qwen2.5:3b
+docker compose exec ollama ollama pull qwen3:8b
 ```
 
 ## Workflow Codex du projet

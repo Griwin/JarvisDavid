@@ -10,7 +10,9 @@ Take completed, in-scope work from the current feature branch to a review-ready 
 ## 1. Establish scope and branch safety
 
 - Read `AGENTS.md`, inspect `git status`, the current branch, remotes, and the diff against the remote default branch.
-- Never ship directly from `main`, `master`, or another default branch. Create a focused feature branch when necessary.
+- Before implementation, update the default branch, then create a new `feat/<short-name>` branch for exactly one feature.
+- Never start a new feature from another feature branch. The previous PR must be merged first.
+- Never ship directly from `main`, `master`, or another default branch.
 - Separate pre-existing or unrelated changes from the requested work. Never stage them merely because they are present.
 - Stop if ownership of overlapping changes is ambiguous and they cannot be separated safely.
 
@@ -50,12 +52,13 @@ Fix clear in-scope findings before continuing. Do not silently expand the featur
 - Create a regular ready-for-review PR unless the user explicitly asks for a draft.
 - Do not merge, enable auto-merge, approve on the user's behalf, or dismiss review findings.
 
-The PR body must include:
+Write the title and body in French. Keep the body concise and include only:
 
-- `## Summary`: user-visible outcome and major implementation choices;
-- `## Verification`: exact checks run and their results;
-- `## Review`: findings fixed during self-review, or `No blocking findings`;
-- `## Limitations`: simulations, missing services, skipped checks, or follow-up work; omit only when genuinely empty.
+- `## Résumé`: the user-visible outcome and important implementation choices;
+- `## Vérifications`: the meaningful checks run;
+- `## Points d'attention`: side effects, migrations, configuration changes, performance impact, or limitations. Omit this section when there is nothing material.
+
+Do not narrate routine file-by-file changes or every review step.
 
 ## 6. Hand off
 

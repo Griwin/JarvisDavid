@@ -21,6 +21,14 @@ export interface TranslationResponse {
   };
 }
 
+export interface SummarizationRequest {
+  text: string;
+}
+
+export interface SummarizationResponse {
+  summaryText: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,5 +39,9 @@ export class ApiService {
 
   translate(data: TranslationRequest): Observable<TranslationResponse> {
     return this.http.post<TranslationResponse>(`${this.apiUrl}/translate`, data);
+  }
+
+  summarize(data: SummarizationRequest): Observable<SummarizationResponse> {
+    return this.http.post<SummarizationResponse>(`${this.apiUrl}/summarize`, data);
   }
 }
