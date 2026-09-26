@@ -1,12 +1,13 @@
 <section class="translate-page">
   <div class="page-header">
-    <h1>Traduction</h1>
-    <p>Traduisez vos messages de manière plus naturelle et fluide.</p>
+    <div class="title-icon"><fa-icon [icon]="icons.translate" /></div>
+    <div><span class="eyebrow">Outil d’écriture</span><h1>Traduction</h1>
+    <p>Traduisez vos messages de manière naturelle, sans quitter votre espace privé.</p></div>
   </div>
 
   <div class="translate-grid">
     <mat-card class="translate-card">
-      <mat-card-header>
+      <mat-card-header class="card-heading">
         <mat-card-title>Message source</mat-card-title>
         <mat-card-subtitle>Entrez votre texte à traduire</mat-card-subtitle>
       </mat-card-header>
@@ -29,7 +30,7 @@
             aria-label="Inverser les langues"
             (click)="swapLanguages()"
           >
-            <mat-icon>swap_horiz</mat-icon>
+            <fa-icon [icon]="icons.swap" />
           </button>
 
           <mat-form-field appearance="outline">
@@ -70,8 +71,10 @@
 
       <mat-card-actions>
         <button mat-flat-button color="primary" (click)="translate()" [disabled]="!canTranslate">
-          {{ isLoading ? 'Traduction en cours…' : 'Traduire avec l’IA locale' }}
+          @if (isLoading) { <mat-spinner diameter="18" /> Traduction en cours… }
+          @else { <fa-icon [icon]="icons.sparkle" /> Traduire avec l’IA locale }
         </button>
+        <button mat-button type="button" (click)="reset()" [disabled]="isLoading || (!sourceText && !translatedText)"><fa-icon [icon]="icons.reset" /> Effacer</button>
       </mat-card-actions>
     </mat-card>
 
@@ -83,18 +86,20 @@
 
       <mat-card-content>
         @if (errorMessage) {
-          <p class="error-message" role="alert">{{ errorMessage }}</p>
+          <div class="error-message" role="alert"><fa-icon [icon]="icons.error" /><span><strong>La traduction a échoué</strong>{{ errorMessage }}</span></div>
         } @else {
           <div class="result-box" [class.loading]="isLoading" aria-live="polite">
-            {{ isLoading ? 'Le modèle prépare votre traduction…' : (translatedText || 'Aucun résultat pour le moment.') }}
+            @if (isLoading) { <div class="empty-state"><mat-spinner diameter="28" /><strong>L’IA prépare votre traduction</strong><span>La première réponse peut prendre quelques secondes.</span></div> }
+            @else if (translatedText) { {{ translatedText }} }
+            @else { <div class="empty-state"><fa-icon [icon]="icons.sparkle" /><strong>Votre traduction apparaîtra ici</strong><span>Saisissez un texte puis lancez la traduction.</span></div> }
           </div>
         }
       </mat-card-content>
 
       <mat-card-actions>
         <button mat-stroked-button (click)="copyResult()" [disabled]="!translatedText">
-          <mat-icon>content_copy</mat-icon>
-          Copier
+          <fa-icon [icon]="isCopied ? icons.copied : icons.copy" />
+          {{ isCopied ? 'Copié !' : 'Copier' }}
         </button>
       </mat-card-actions>
     </mat-card>

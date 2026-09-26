@@ -21,6 +21,7 @@ describe('App', () => {
     fixture.detectChanges();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.topbar-title')?.textContent).toContain('JarvisDavid');
+    expect(compiled.querySelector('.sidebar-brand')?.textContent).toContain('Jarvis');
+    expect(compiled.querySelector('.topbar-title')?.textContent).toContain('Espace de travail');
   });
 });

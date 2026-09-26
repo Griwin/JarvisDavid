@@ -10,7 +10,7 @@ services:
     environment:
       APP_ENV: dev
       OLLAMA_BASE_URL: http://ollama:11434
-      OLLAMA_MODEL: qwen3:8b
+      OLLAMA_MODEL: gemma3:12b
     depends_on:
       - db
       - ollama

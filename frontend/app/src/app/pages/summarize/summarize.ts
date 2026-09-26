@@ -4,8 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCheck, faCopy, faRotateLeft, faTriangleExclamation, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import { finalize } from 'rxjs';
 
 import { ApiService, SummarizationRequest } from '../../../../services/api.service';
@@ -18,17 +20,20 @@ import { ApiService, SummarizationRequest } from '../../../../services/api.servi
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatIconModule,
     MatInputModule,
+    MatProgressSpinnerModule,
+    FontAwesomeModule,
   ],
   templateUrl: './summarize.html',
   styleUrl: './summarize.css',
 })
 export class Summarize {
+  readonly icons = { summarize: faWandMagicSparkles, sparkle: faWandMagicSparkles, copy: faCopy, copied: faCheck, reset: faRotateLeft, error: faTriangleExclamation };
   sourceText = '';
   summaryText = '';
   errorMessage = '';
   isLoading = false;
+  isCopied = false;
 
   constructor(private readonly api: ApiService) {}
 
@@ -61,13 +66,25 @@ export class Summarize {
     return length >= 50 && length <= 20000 && !this.isLoading;
   }
 
+  reset(): void {
+    this.sourceText = '';
+    this.summaryText = '';
+    this.errorMessage = '';
+    this.isCopied = false;
+  }
+
   copyResult(): void {
     if (!this.summaryText) {
       return;
     }
 
-    navigator.clipboard.writeText(this.summaryText).catch(() => {
-      this.errorMessage = 'Impossible de copier automatiquement le résumé.';
-    });
+    navigator.clipboard.writeText(this.summaryText)
+      .then(() => {
+        this.isCopied = true;
+        window.setTimeout(() => (this.isCopied = false), 1800);
+      })
+      .catch(() => {
+        this.errorMessage = 'Impossible de copier automatiquement le résumé.';
+      });
   }
 }

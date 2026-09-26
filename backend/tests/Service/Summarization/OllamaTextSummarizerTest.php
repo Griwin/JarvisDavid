@@ -25,7 +25,7 @@ final class OllamaTextSummarizerTest extends TestCase
             ], JSON_THROW_ON_ERROR));
         });
 
-        $summarizer = new OllamaTextSummarizer($client, 'http://ollama:11434', 'qwen3:8b');
+        $summarizer = new OllamaTextSummarizer($client, 'http://ollama:11434', 'gemma3:12b');
 
         self::assertSame('Voici le résumé.', $summarizer->summarize('Un texte suffisamment long à résumer.'));
     }
@@ -36,7 +36,7 @@ final class OllamaTextSummarizerTest extends TestCase
             'message' => ['content' => ''],
         ], JSON_THROW_ON_ERROR)));
 
-        $summarizer = new OllamaTextSummarizer($client, 'http://ollama:11434', 'qwen3:8b');
+        $summarizer = new OllamaTextSummarizer($client, 'http://ollama:11434', 'gemma3:12b');
 
         $this->expectException(SummarizationException::class);
         $summarizer->summarize('Un texte suffisamment long à résumer.');

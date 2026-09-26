@@ -1,35 +1,36 @@
 <mat-sidenav-container class="layout-container">
-  <mat-sidenav [mode]="'side'" [opened]="isSidebarOpen" class="sidebar">
+  <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="isSidebarOpen" class="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-brand">
-        <mat-icon>smart_toy</mat-icon>
-        <span *ngIf="isSidebarOpen">JarvisDavid</span>
+        <span class="brand-mark"><fa-icon [icon]="icons.robot" /></span>
+        <span *ngIf="isSidebarOpen"><strong>Jarvis</strong><small>Assistant local</small></span>
       </div>
     </div>
 
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
-        <mat-icon matListItemIcon>dashboard</mat-icon>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" (click)="closeSidebarOnMobile()">
+        <fa-icon matListItemIcon [icon]="icons.dashboard" />
         <span matListItemTitle *ngIf="isSidebarOpen">Dashboard</span>
       </a>
 
-      <a mat-list-item routerLink="/translate" routerLinkActive="active-link">
-        <mat-icon matListItemIcon>translate</mat-icon>
+      <a mat-list-item routerLink="/translate" routerLinkActive="active-link" (click)="closeSidebarOnMobile()">
+        <fa-icon matListItemIcon [icon]="icons.translate" />
         <span matListItemTitle *ngIf="isSidebarOpen">Traduction</span>
       </a>
 
-      <a mat-list-item routerLink="/summarize" routerLinkActive="active-link">
-        <mat-icon matListItemIcon>article</mat-icon>
+      <a mat-list-item routerLink="/summarize" routerLinkActive="active-link" (click)="closeSidebarOnMobile()">
+        <fa-icon matListItemIcon [icon]="icons.summarize" />
         <span matListItemTitle *ngIf="isSidebarOpen">Résumé texte</span>
       </a>
 
-      <a mat-list-item href="#">
-        <mat-icon matListItemIcon>picture_as_pdf</mat-icon>
+      <div class="nav-section" *ngIf="isSidebarOpen">Prochainement</div>
+      <a mat-list-item class="disabled-link" aria-disabled="true">
+        <fa-icon matListItemIcon [icon]="icons.pdf" />
         <span matListItemTitle *ngIf="isSidebarOpen">Résumé PDF</span>
       </a>
 
-      <a mat-list-item href="#">
-        <mat-icon matListItemIcon>history</mat-icon>
+      <a mat-list-item class="disabled-link" aria-disabled="true">
+        <fa-icon matListItemIcon [icon]="icons.history" />
         <span matListItemTitle *ngIf="isSidebarOpen">Historique</span>
       </a>
     </mat-nav-list>
@@ -43,10 +44,11 @@
         aria-label="Basculer le menu"
         (click)="toggleSidebar()"
       >
-        <mat-icon>menu</mat-icon>
+        <fa-icon [icon]="icons.menu" />
       </button>
 
-      <span class="topbar-title">JarvisDavid</span>
+      <span class="topbar-title">Espace de travail</span>
+      <span class="local-badge"><span></span> IA locale</span>
     </mat-toolbar>
 
     <main class="page-content">
